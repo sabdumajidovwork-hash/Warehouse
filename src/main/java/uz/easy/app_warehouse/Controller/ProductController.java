@@ -17,6 +17,6 @@ public class ProductController {
 
     @PostMapping
     public Result addProduct(@RequestBody ProductDto productDto) {
-        return productService.addProduct(productDto);
+        return productService.addProductService(productDto);
     }
 }

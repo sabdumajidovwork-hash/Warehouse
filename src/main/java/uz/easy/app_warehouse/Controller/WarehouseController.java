@@ -17,7 +17,7 @@ public class WarehouseController {
 
     @PostMapping
     public Result createWarehouse(@RequestBody Warehouse warehouse){
-        return wareHouseService.createWarehouse(warehouse);
+        return wareHouseService.createWarehouseService(warehouse);
     }
 
 }

@@ -25,7 +25,7 @@ public class ProductService {
     private final MeasurementRepository measurementRepository;
 
 
-    public Result addProduct(ProductDto productDto) {
+    public Result addProductService(ProductDto productDto) {
         boolean existsByNameAndCategoryId = productRepository.existsByNameAndCategoryId(productDto.getName(), productDto.getCategoryId());
         if (existsByNameAndCategoryId) {
             return new Result("Bunday mahsulot ushbu categoriyada bor", false);

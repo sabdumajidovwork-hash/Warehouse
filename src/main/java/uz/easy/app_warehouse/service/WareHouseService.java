@@ -11,11 +11,15 @@ import uz.easy.app_warehouse.repository.WarehouseRepository;
 public class WareHouseService {
     private final WarehouseRepository warehouseRepository;
 
-    public Result createWarehouse(Warehouse warehouse) {
-        Warehouse ware = new Warehouse();
-        ware.setName(warehouse.getName());
-
-        return new Result("Omborxona yaratildi", true);
+    public Result createWarehouseService(Warehouse warehouse) {
+        if (warehouseRepository.existsByName(warehouse.getName())) {
+            return new Result("Bunday ombor mvjud", false);
+        } else {
+            Warehouse ware = new Warehouse();
+            ware.setName(warehouse.getName());
+            warehouseRepository.save(ware);
+            return new Result("Omborxona yaratildi", true);
+        }
     }
 
 }

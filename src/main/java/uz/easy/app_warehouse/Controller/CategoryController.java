@@ -18,7 +18,7 @@ public class CategoryController {
 
     @PostMapping
     public Result addCategory(@RequestBody CategoryDto categoryDto) {
-        return categoryService.addCategory(categoryDto);
+        return categoryService.addCategoryService(categoryDto);
     }
 
 }

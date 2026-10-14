@@ -14,7 +14,7 @@ import java.util.Optional;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    public Result addCategory(CategoryDto categoryDto) {
+    public Result addCategoryService(CategoryDto categoryDto) {
         Category category = new Category();
         category.setName(categoryDto.getName());
         if (categoryDto.getParentCategoryId() != null) {

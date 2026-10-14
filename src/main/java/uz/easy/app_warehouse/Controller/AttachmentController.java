@@ -17,7 +17,7 @@ public class AttachmentController {
 
     @PostMapping
     public Result upload(MultipartHttpServletRequest request) {
-        return attachmentService.uploadFile(request);
+        return attachmentService.uploadFileService(request);
     }
 
 }

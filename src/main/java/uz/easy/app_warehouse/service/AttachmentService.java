@@ -20,7 +20,7 @@ public class AttachmentService {
     private final AttachmentRepository attachmentRepository;
     private final AttachmentContentRepository attachmentContentRepository;
 
-    public Result uploadFile(MultipartHttpServletRequest request)   {
+    public Result uploadFileService(MultipartHttpServletRequest request)   {
         Iterator<String> fileNames = request.getFileNames();
         MultipartFile file = request.getFile(fileNames.next());
         Attachment attachment = new Attachment();
