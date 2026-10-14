@@ -20,7 +20,7 @@ public class UserService {
 
     public Result createUserService(UserDto userDto) {
         boolean existsByPhoneNumber = userRepository.existsByPhoneNumber(userDto.getPhoneNumber());
-        boolean existsByCode = userRepository.existsByPhoneNumber(userDto.getCode());
+        boolean existsByCode = userRepository.existsByCode(userDto.getCode());
         boolean existsAllById = warehouseRepository.existsAllById(userDto.getWarehouses());
         if (existsByPhoneNumber) {
             return new Result("Bunday telefon raqam bilan user yaratilgan", false);
