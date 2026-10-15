@@ -2,8 +2,6 @@ package uz.easy.app_warehouse.dto;
 
 import lombok.Data;
 
-import java.util.Set;
-
 @Data
 public class UserDto {
     private String firstName;
@@ -11,5 +9,5 @@ public class UserDto {
     private String phoneNumber;
     private String password;
     private String code;
-    private Set<Long> warehouses;
-}
+    private Long warehouseId;
+    }

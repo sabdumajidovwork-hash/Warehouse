@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Entity(name = "users")
 @Data
 @AllArgsConstructor
@@ -32,7 +30,6 @@ public class User {
 
     private boolean active = true;
 
-    @ManyToMany
-    private Set<Warehouse> warehouses;
+
 
 }

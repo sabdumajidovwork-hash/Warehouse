@@ -11,7 +11,7 @@ public class Result {
 
     private String message;
     private boolean success;
-    private Object object;
+    private Object data;
 
     public Result(String message, boolean success) {
         this.message = message;
