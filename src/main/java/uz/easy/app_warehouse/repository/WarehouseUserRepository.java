@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface WarehouseUserRepository extends JpaRepository<WarehouseUser, Long> {
 
-    void deleteByWarehouseId(Long id);
-
     List<WarehouseUser> findByWarehouseId(Long id);
+
+    List<WarehouseUser> findByUserId(Long id);
 }

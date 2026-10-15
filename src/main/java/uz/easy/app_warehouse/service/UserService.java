@@ -11,6 +11,7 @@ import uz.easy.app_warehouse.repository.UserRepository;
 import uz.easy.app_warehouse.repository.WarehouseRepository;
 import uz.easy.app_warehouse.repository.WarehouseUserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,7 +49,71 @@ public class UserService {
 
             return new Result("User yaratildi", true);
         }
+    }
+
+    public Result getUsersService() {
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            return new Result("Userlar topilmadi", false);
+        }
+
+        return new Result("Userlar mavjud", true, users);
+    }
+
+    public Result getUserByService(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isEmpty()) {
+            return new Result("Bunday user topilmadi", false);
+        }
+
+        return new Result("Topildi", true, userOptional.get());
+
+    }
+
+    public Result updateUserService(Long id, UserDto dto) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isEmpty()) {
+            return new Result("Bunday user topilmadi", false);
+        }
+
+        User user = userOptional.get();
+
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setCode(dto.getCode());
+        user.setPhoneNumber(dto.getPhoneNumber());
+        user.setPassword(dto.getPassword());
+        user.setActive(dto.isActive());
+
+        userRepository.save(user);
+
+        return new Result("User tahrirlandi", true);
 
 
+    }
+
+    public Result removeUserService(Long id) {
+        List<WarehouseUser> warehouseUserList = warehouseUserRepository.findByUserId(id);
+        boolean existsById = userRepository.existsById(id);
+
+        if (!existsById) {
+            return new Result("Bunday user topilmadi", false);
+        }
+        if (warehouseUserList.isEmpty()) {
+            return new Result("Bunday user topilmadi", false);
+        }
+
+        for (WarehouseUser warehouseUser : warehouseUserList) {
+            if (id.equals(warehouseUser.getUser().getId())) {
+                warehouseUserRepository.deleteById(warehouseUser.getId());
+            }
+        }
+
+
+        userRepository.deleteById(id);
+
+        return new Result("User o'chirildi", true);
     }
 }

@@ -10,4 +10,5 @@ public class UserDto {
     private String password;
     private String code;
     private Long warehouseId;
+    private boolean active;
     }
