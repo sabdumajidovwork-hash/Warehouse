@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ClientDto {
+    private  boolean active;
     private String name;
     private String phoneNumber;
 }
