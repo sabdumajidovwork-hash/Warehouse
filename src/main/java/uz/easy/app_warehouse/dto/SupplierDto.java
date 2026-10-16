@@ -6,4 +6,5 @@ import lombok.Data;
 public class SupplierDto {
     private String name;
     private String phoneNumber;
+    private boolean active;
 }
