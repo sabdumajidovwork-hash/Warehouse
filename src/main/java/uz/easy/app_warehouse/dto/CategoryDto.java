@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class CategoryDto {
     private String name;
+    private boolean activate;
     private Long parentCategoryId;
 }

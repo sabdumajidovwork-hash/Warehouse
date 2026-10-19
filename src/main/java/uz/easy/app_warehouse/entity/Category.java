@@ -13,6 +13,6 @@ import uz.easy.app_warehouse.entity.template.AbsEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category extends AbsEntity {
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Category parentCategory;
 }

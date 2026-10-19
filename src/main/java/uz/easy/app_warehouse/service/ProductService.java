@@ -13,6 +13,7 @@ import uz.easy.app_warehouse.repository.CategoryRepository;
 import uz.easy.app_warehouse.repository.MeasurementRepository;
 import uz.easy.app_warehouse.repository.ProductRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,12 +49,70 @@ public class ProductService {
 
             Product product = new Product();
             product.setName(productDto.getName());
-            product.setCode("1"); ///TODO
+            product.setCode(productDto.getCode()); ///TODO
             product.setCategory(optionalCategory.get());
             product.setPhoto(optionalAttachment.get());
             product.setMeasurement(optionalMeasurement.get());
             productRepository.save(product);
             return new Result("Mahsulot saqlandi", true);
         }
+    }
+
+    public Result getProductsService() {
+
+        List<Product> productList = productRepository.findAll();
+
+        if (productList.isEmpty()) return new Result("Mahsulotlar topilmadi", false);
+
+        return new Result("Mahsulotlar ro'yxati", true, productList);
+    }
+
+    public Result getProductByIdService(Long id) {
+
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        if (productOptional.isEmpty()) return new Result("Mahsulotlar topilmadi", false);
+
+        return new Result("Mahsulotlar ro'yxati", true, productOptional.get());
+    }
+
+    public Result updateProductService(Long id, ProductDto dto) {
+
+        Optional<Product> productOptional = productRepository.findById(id);
+        Optional<Measurement> measurementOptional = measurementRepository.findById(dto.getMeasurementId());
+        Optional<Attachment> attachmentOptional = attachmentRepository.findById(dto.getPhotoId());
+        Optional<Category> categoryOptional = categoryRepository.findById(dto.getCategoryId());
+
+
+        if (productOptional.isEmpty()) return new Result("Mahsulotlar topilmadi", false);
+        if (measurementOptional.isEmpty()) return new Result("Measurement topilmadi", false);
+        if (attachmentOptional.isEmpty()) return new Result("Attachment topilmadi", false);
+        if (categoryOptional.isEmpty()) return new Result("Category topilmadi", false);
+
+
+        Product product = productOptional.get();
+        product.setName(dto.getName());
+        product.setActive(dto.isActive());
+        product.setCode(dto.getCode());
+        product.setCategory(categoryOptional.get());
+        product.setMeasurement(measurementOptional.get());
+        product.setPhoto(attachmentOptional.get());
+
+        Product savedProduct = productRepository.save(product);
+
+
+        return new Result("Mahsulotlar ro'yxati", true, savedProduct);
+    }
+
+    public Result removeProductService(Long id) {
+
+        boolean exsistsById = productRepository.existsById(id);
+
+        if (!exsistsById) return new Result("Mahsulot topilmadi", false);
+
+        productRepository.deleteById(id);
+        return new Result("Mahsulot o'chirildi", true);
+
+
     }
 }
